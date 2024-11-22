@@ -1,0 +1,9 @@
+{
+    "Version": "1.1",
+    "Data": {
+        "Source": "c:\\users\\turfa\\onedrive\\documents\\github\\object viewer\\3d-object-viewer\\3d viewer\\dependencies\\include\\glm\\glm.cppm",
+        "ProvidedModule": "glm",
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
