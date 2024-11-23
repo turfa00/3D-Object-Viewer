@@ -7,7 +7,7 @@
 #include <assimp/include/postprocess.h>
 #include "shader.h"
 #include "mesh.h"
-
+#include "menu.h"
 class Model
 {
 public:
@@ -36,6 +36,11 @@ private:
         }
 
         processNode(scene->mRootNode, scene);
+    }
+
+    //Load model values
+    void loadModelValues() {
+
     }
     // Recursively process each Node by calling processMesh on each node's 
     // meshes and adding them to m_meshes vector

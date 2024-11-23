@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include <inih/INIReader.h>
 #include "camera.h"
+#include "menu.h"
 #include "model.h"
 #include "mesh.h"
 #include <GL/glut.h>
@@ -21,13 +22,13 @@ GLFWwindow* window;
 const unsigned int SCR_WIDTH = 1080;
 const unsigned int SCR_HEIGHT = 720;
 
-//Move elsewhere
-// Globals
+// Global values
 float last_x, last_y;
 bool first_mouse = true;
 
 // Camera
 Camera camera;
+Menu menu(camera);
 
 
 //Controls
@@ -123,6 +124,7 @@ int main(int* argc, char** argv)
     float fov_sensitivity = config.GetFloat("Input", "FovSensitivity", 0.4);
     camera.setSensitivities(mouse_sensitivity, zoom_sensitivity, fov_sensitivity);
 
+
     // Instantiate, compile and link shader
     Shader shader(
         "shaders/vertex.glsl",
@@ -136,80 +138,28 @@ int main(int* argc, char** argv)
     Model ourModel(config.Get("Model", "Path", ""));
     // Build model matrix
     glm::mat4 model = glm::mat4(1.0f);
-    float tests = config.GetFloat("Model", "TranslateY", 0.0);
-    glm::vec3 model_translate_vec = glm::vec3(
-        config.GetFloat("Model", "TranslateX", 0.0),
-        config.GetFloat("Model", "TranslateY", 0.0),
-        config.GetFloat("Model", "TranslateZ", 0.0)
-    );
-    glm::vec3 model_scale = glm::vec3(
-        config.GetFloat("Model", "ScaleXYZ", 1.0)
-    );
-    float model_rotate_angle = glm::radians(
-        config.GetFloat("Model", "RotateAngle", 0.0)
-    );
-    glm::vec3 model_rotate_axis = glm::vec3(
-        config.GetFloat("Model", "RotateAxisX", 0.0),
-        config.GetFloat("Model", "RotateAxisY", 0.0),
-        config.GetFloat("Model", "RotateAxisZ", 0.0)
-    );
-    model = glm::translate(model, model_translate_vec);
-    model = glm::scale(model, model_scale);
-    model = glm::rotate(model, model_rotate_angle, model_rotate_axis);
+    
+    //Model Transformations
+    model = glm::translate(model, menu.translate);
+    model = glm::scale(model, glm::vec3(menu.scale));
+    model = glm::rotate(model, glm::radians(menu.rotationAngle), glm::vec3(menu.rotate));
     // Send model matrix to vertex shader as it remains constant
     shader.setMat4("model", model);
 
-    // Set fragment shader uniforms
-    // Material lighting properties
-    glm::vec3 material_ambient = glm::vec3(
-        config.GetFloat("Material", "AmbientColorR", 1.0),
-        config.GetFloat("Material", "AmbientColorG", 1.0),
-        config.GetFloat("Material", "AmbientColorB", 1.0)
-    );
-    shader.setVec3("material.ambient", material_ambient);
-    glm::vec3 material_diffuse = glm::vec3(
-        config.GetFloat("Material", "DiffuseColorR", 1.0),
-        config.GetFloat("Material", "DiffuseColorG", 1.0),
-        config.GetFloat("Material", "DiffuseColorB", 1.0)
-    );
-    shader.setVec3("material.diffuse", material_diffuse);
-    glm::vec3 material_specular = glm::vec3(
-        config.GetFloat("Material", "SpecularColorR", 1.0),
-        config.GetFloat("Material", "SpecularColorG", 1.0),
-        config.GetFloat("Material", "SpecularColorB", 1.0)
-    );
-    shader.setVec3("material.specular", material_specular);
-    float material_shininess = config.GetFloat("Material", "Shininess", 32.0);
-    shader.setFloat("material.shininess", material_shininess);
+    shader.setFloat("material.shininess", menu.shininess);
 
-    // Light lighting properties
-    glm::vec3 light_ambient = glm::vec3(
-        config.GetFloat("Light", "AmbientColorR", 1.0),
-        config.GetFloat("Light", "AmbientColorG", 1.0),
-        config.GetFloat("Light", "AmbientColorB", 1.0));
-    shader.setVec3("light.ambient", light_ambient);
-    glm::vec3 light_diffuse = glm::vec3(
-        config.GetFloat("Light", "DiffuseColorR", 1.0),
-        config.GetFloat("Light", "DiffuseColorG", 1.0),
-        config.GetFloat("Light", "DiffuseColorB", 1.0));
-    shader.setVec3("light.diffuse", light_diffuse);
-    glm::vec3 light_specular = glm::vec3(
-        config.GetFloat("Light", "SpecularColorR", 1.0),
-        config.GetFloat("Light", "SpecularColorG", 1.0),
-        config.GetFloat("Light", "SpecularColorB", 1.0));
-    shader.setVec3("light.specular", light_specular);
+    //Material Colors
+    shader.setVec3("material.ambient", menu.ambientMaterialColor);
+    shader.setVec3("material.diffuse", menu.diffuseMaterialColor);
+    shader.setVec3("material.specular", menu.specularMaterialColor);
 
-    // Background color
-    glm::vec3 background_color = glm::vec3(
-        config.GetFloat("Graphics", "BackgroundColorR", 0.8),
-        config.GetFloat("Graphics", "BackgroundColorG", 0.0),
-        config.GetFloat("Graphics", "BackgroundColorB", 0.0)
-    );
+    //Scene lighting
+    shader.setVec3("light.ambient", menu.ambientLightingColor);
+    shader.setVec3("light.diffuse", menu.diffuseLightingColor);
+    shader.setVec3("light.specular", menu.specularLightingColor);
 
-    float explode_distance = 2.0;
-    bool should_explode = config.GetBoolean("Graphics", "ExplodeOnStart", true);
-    float deltaTime,
-        currentFrame, lastFrame = 0;
+    //Time and Frame Animation
+    float deltaTime, currentFrame, lastFrame = 0;
     bool show_demo_window = true;
     bool show_another_window = false;
     while (!glfwWindowShouldClose(window))
@@ -222,12 +172,18 @@ int main(int* argc, char** argv)
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-
-        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        ImGui::Checkbox("Another Window", &show_another_window);
         
+
+        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
+        ImGui::MenuItem("Load Model..", "Ctrl+O");
+        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
+        //ImGui::EndMenu();
+        //ImGui::EndMenuBar();
+        //ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
+        //ImGui::Checkbox("Another Window", &show_another_window);
+        
+        ImGui::SliderFloat("float", &menu.backgroundColor.x, 0.0f, 1.0f);
+        ImGui::SliderFloat("float", &menu.backgroundColor.y, 0.0f, 1.0f);
         
             
         ImGui::End();
@@ -235,19 +191,10 @@ int main(int* argc, char** argv)
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
-        glClearColor(background_color.r, background_color.g,
-            background_color.b, 1.0f);
+        glClearColor(menu.backgroundColor.x, menu.backgroundColor.y, menu.backgroundColor.z, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        // Vertex shader uniforms
-        if (explode_distance > 0 && should_explode)
-        {
-            explode_distance -= 0.01;
-        }
-        else
-        {
-            explode_distance = 0;
-        }
-        shader.setFloat("distance", explode_distance);
+        
+        //shader.setFloat("distance", explode_distance);
         shader.setMat4("view", camera.getViewMatrix());
         shader.setMat4("projection", camera.getProjectionMatrix());
         shader.setVec3("light.position", camera.getPosition());
