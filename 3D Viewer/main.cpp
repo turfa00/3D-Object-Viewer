@@ -1,6 +1,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <inih/INIReader.h>
 #include "camera.h"
 #include "menu.h"
@@ -162,8 +163,25 @@ int main(int* argc, char** argv)
     float deltaTime, currentFrame, lastFrame = 0;
     bool show_demo_window = true;
     bool show_another_window = false;
+
+    //BackGround and Scene Temporary Values
+    float*  backGroundColorTmp = glm::value_ptr(menu.backgroundColor);
+
+    //Material Temporary Values
+    float* ambientMaterialColorTmp = glm::value_ptr(menu.ambientMaterialColor);
+    float* diffuseMaterialColorTmp = glm::value_ptr(menu.diffuseMaterialColor);
+    float* specularMaterialColorTmp = glm::value_ptr(menu.specularMaterialColor);
+
+    //Scene Lighting Temporary Values
+    float* ambientLightingColorTmp = glm::value_ptr(menu.ambientLightingColor);
+    float* diffuseLightingColorTmp = glm::value_ptr(menu.diffuseLightingColor);
+    float* specularLightingColorTmp = glm::value_ptr(menu.specularLightingColor);
+
+    //Model Temporary Values
+    //float* modelColorTmp = glm::value_ptr(menu.backgroundColor);;
     while (!glfwWindowShouldClose(window))
     {
+        //Create ImGui Frames
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
@@ -172,20 +190,58 @@ int main(int* argc, char** argv)
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
         
+        ImGui::Begin("3D Object Viewer");                          // Create a window called "Hello, world!" and append into it.
         
+        //Menu Bar
+        if (ImGui::BeginMainMenuBar()) {
+            if (ImGui::BeginMenu("File")) {
+                if (ImGui::MenuItem("Create")) {
+                    /*show_another_window = true;
+                    ImGui::Begin("Window A", &show_another_window);
+                    //ImGui::Text("Here");
+                    ImGui::End();*/
+                }
+                if (ImGui::MenuItem("Open", "Ctrl+O")) {
+                }
+                if (ImGui::MenuItem("Save", "Ctrl+S")) {
+                }
+                if (ImGui::MenuItem("Save as..")) {
+                }
+                ImGui::EndMenu();
+            }
+            ImGui::EndMainMenuBar();
+        }
+        
+        //WireFrame
+        ImGui::Checkbox("WireFrame", &menu.wireFrame);
+        //Background
+        ImGui::ColorEdit4("Background", backGroundColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB | 
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+        //Material
+        ImGui::Text("Material");
+        ImGui::ColorEdit4("Ambient Material", ambientMaterialColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+        ImGui::ColorEdit4("Diffuse Material", diffuseMaterialColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+        ImGui::ColorEdit4("Specular Material", specularMaterialColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+        //Shininess
+        ImGui::SliderFloat("Shininess", &menu.shininess, 0.0f, 100.0f);
+        //Scene
+        ImGui::Text("Scene");
+        ImGui::ColorEdit4("Ambient Scene", ambientLightingColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+        ImGui::ColorEdit4("Diffuse Scene", diffuseLightingColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+        ImGui::ColorEdit4("Specular Scene", specularLightingColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
+            ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
 
-        ImGui::Begin("Hello, world!");                          // Create a window called "Hello, world!" and append into it.
-        ImGui::MenuItem("Load Model..", "Ctrl+O");
-        ImGui::Text("This is some useful text.");               // Display some text (you can use a format strings too)
-        //ImGui::EndMenu();
-        //ImGui::EndMenuBar();
-        //ImGui::Checkbox("Demo Window", &show_demo_window);      // Edit bools storing our window open/close state
-        //ImGui::Checkbox("Another Window", &show_another_window);
+        //Input
+        ImGui::SliderFloat("Mouse Sensitivity", &menu.mouseSensitivity, 0.0f, 1.0f);
+        ImGui::SliderFloat("Zoom Sensitivity", &menu.zoomSensitivity, 0.0f, 1.0f);
+        ImGui::SliderFloat("Fov Sensitivity", &menu.fovSensitivity, 0.0f, 1.0f);
         
-        ImGui::SliderFloat("float", &menu.backgroundColor.x, 0.0f, 1.0f);
-        ImGui::SliderFloat("float", &menu.backgroundColor.y, 0.0f, 1.0f);
-        
-            
+        //End menu
         ImGui::End();
         ImGui::Render();
         int display_w, display_h;
