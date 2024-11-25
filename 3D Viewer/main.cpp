@@ -23,6 +23,8 @@ GLFWwindow* window;
 const unsigned int SCR_WIDTH = 1080;
 const unsigned int SCR_HEIGHT = 720;
 
+//Model
+Model load3DModel(std::string path, Shader shader);
 // Global values
 float last_x, last_y;
 bool first_mouse = true;
@@ -40,6 +42,7 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 int main(int* argc, char** argv)
 {
     INIReader config("config.ini");
+    std::string ModelPath = "./models/rat.stl";
     if (!glfwInit())
         return -1;
 
@@ -134,38 +137,16 @@ int main(int* argc, char** argv)
     );
     shader.use(); // There is only have one shader so this one can remain attached
 
-    // Instantiate and load model
-    
-    Model ourModel(config.Get("Model", "Path", ""));
-    // Build model matrix
-    glm::mat4 model = glm::mat4(1.0f);
-    
-    //Model Transformations
-    model = glm::translate(model, menu.translate);
-    model = glm::scale(model, glm::vec3(menu.scale));
-    model = glm::rotate(model, glm::radians(menu.rotationAngle), glm::vec3(menu.rotate));
-    // Send model matrix to vertex shader as it remains constant
-    shader.setMat4("model", model);
-
-    shader.setFloat("material.shininess", menu.shininess);
-
-    //Material Colors
-    shader.setVec3("material.ambient", menu.ambientMaterialColor);
-    shader.setVec3("material.diffuse", menu.diffuseMaterialColor);
-    shader.setVec3("material.specular", menu.specularMaterialColor);
-
-    //Scene lighting
-    shader.setVec3("light.ambient", menu.ambientLightingColor);
-    shader.setVec3("light.diffuse", menu.diffuseLightingColor);
-    shader.setVec3("light.specular", menu.specularLightingColor);
-
+    //Load a default 3DModel from a path
+    Model ourModel = load3DModel(ModelPath, shader);
     //Time and Frame Animation
     float deltaTime, currentFrame, lastFrame = 0;
     bool show_demo_window = true;
     bool show_another_window = false;
 
+    //We store float[] values that are then affected then transferred to glm menu values
     //BackGround and Scene Temporary Values
-    float*  backGroundColorTmp = glm::value_ptr(menu.backgroundColor);
+    float* backGroundColorTmp = glm::value_ptr(menu.backgroundColor);
 
     //Material Temporary Values
     float* ambientMaterialColorTmp = glm::value_ptr(menu.ambientMaterialColor);
@@ -177,8 +158,7 @@ int main(int* argc, char** argv)
     float* diffuseLightingColorTmp = glm::value_ptr(menu.diffuseLightingColor);
     float* specularLightingColorTmp = glm::value_ptr(menu.specularLightingColor);
 
-    //Model Temporary Values
-    //float* modelColorTmp = glm::value_ptr(menu.backgroundColor);;
+    char* modelPathTmp = ModelPath.data();
     while (!glfwWindowShouldClose(window))
     {
         //Create ImGui Frames
@@ -211,7 +191,11 @@ int main(int* argc, char** argv)
             }
             ImGui::EndMainMenuBar();
         }
-        
+        //Model Path and name
+        ImGui::InputText("Model", modelPathTmp, 20, 0, NULL, NULL);
+        if (ImGui::Button("Button")) {
+            ourModel = load3DModel(modelPathTmp, shader);
+        }
         //WireFrame
         ImGui::Checkbox("WireFrame", &menu.wireFrame);
         //Background
@@ -225,6 +209,7 @@ int main(int* argc, char** argv)
             ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
         ImGui::ColorEdit4("Specular Material", specularMaterialColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
             ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
+
         //Shininess
         ImGui::SliderFloat("Shininess", &menu.shininess, 0.0f, 100.0f);
         //Scene
@@ -247,7 +232,8 @@ int main(int* argc, char** argv)
         int display_w, display_h;
         glfwGetFramebufferSize(window, &display_w, &display_h);
         glViewport(0, 0, display_w, display_h);
-        glClearColor(menu.backgroundColor.x, menu.backgroundColor.y, menu.backgroundColor.z, 1.0f);
+        //glClearColor(menu.backgroundColor.x, menu.backgroundColor.y, menu.backgroundColor.z, 1.0f);
+        glClearColor(backGroundColorTmp[0], backGroundColorTmp[1], backGroundColorTmp[2], 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
         //shader.setFloat("distance", explode_distance);
@@ -317,3 +303,29 @@ void scroll_callback(GLFWwindow* window, double x_offset, double y_offset)
     camera.zoom(y_offset);
 }
 
+Model load3DModel(std::string path, Shader shader) {
+    // Instantiate and load model
+    Model ourModel(path);
+    // Build model matrix
+    glm::mat4 model = glm::mat4(1.0f);
+
+    //Model Transformations
+    model = glm::translate(model, menu.translate);
+    model = glm::scale(model, glm::vec3(menu.scale));
+    model = glm::rotate(model, glm::radians(menu.rotationAngle), glm::vec3(menu.rotate));
+    // Send model matrix to vertex shader as it remains constant
+    shader.setMat4("model", model);
+
+    //Material Colors
+    shader.setVec3("material.ambient", menu.ambientMaterialColor);
+    shader.setVec3("material.diffuse", menu.diffuseMaterialColor);
+    shader.setVec3("material.specular", menu.specularMaterialColor);
+    shader.setFloat("material.shininess", menu.shininess);
+
+    //Scene lighting
+    shader.setVec3("light.ambient", menu.ambientLightingColor);
+    shader.setVec3("light.diffuse", menu.diffuseLightingColor);
+    shader.setVec3("light.specular", menu.specularLightingColor);
+
+    return ourModel;
+}

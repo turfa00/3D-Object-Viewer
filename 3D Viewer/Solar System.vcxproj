@@ -565,7 +565,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\..\..\Program Files\Assimp\bin\x64\assimp-vc143-mt.dll" />
-    <None Include="config.ini" />
     <None Include="dependencies\include\assimp\color4.inl" />
     <None Include="dependencies\include\assimp\include\assimp\color4.inl" />
     <None Include="dependencies\include\assimp\include\assimp\material.inl" />
@@ -734,8 +733,6 @@
     <None Include="shaders\fragment.glsl" />
     <None Include="shaders\geometry.glsl" />
     <None Include="shaders\vertex.glsl" />
-    <None Include="sphereShader.h" />
-    <None Include="solar.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

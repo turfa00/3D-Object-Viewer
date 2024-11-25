@@ -1271,8 +1271,6 @@
     <Library Include="dependencies\lib\freeglut.lib" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="solar.vert" />
-    <None Include="sphereShader.h" />
     <None Include="dependencies\include\assimp\include\assimp\color4.inl">
       <Filter>Fichiers d%27en-tête</Filter>
     </None>
@@ -1331,7 +1329,6 @@
     <None Include="..\..\..\..\..\..\..\Program Files\Assimp\bin\x64\assimp-vc143-mt.dll" />
     <None Include="dependencies\lib\assimp-vc143-mt.dll" />
     <None Include="packages.config" />
-    <None Include="config.ini" />
     <None Include="dependencies\lib\freeglut.dll" />
     <None Include="dependencies\include\glm\detail\func_common.inl">
       <Filter>Fichiers d%27en-tête</Filter>

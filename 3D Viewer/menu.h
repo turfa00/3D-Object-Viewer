@@ -43,20 +43,20 @@ public:
 		//Default values
 		this->camera = &_camera;
 		//Material
-		ambientMaterialColor = glm::vec3(.7f);
-		diffuseMaterialColor = glm::vec3(.8f);
-		specularMaterialColor = glm::vec3(.8f);
+		ambientMaterialColor = glm::vec3(.7f, .7f, .7f);
+		diffuseMaterialColor = glm::vec3(.8f, .8f, .8f);
+		specularMaterialColor = glm::vec3(.8f, .8f, .8f);
 
 		//Scene
-		ambientMaterialColor = glm::vec3(.2f);
-		diffuseMaterialColor = glm::vec3(.7f);
-		specularMaterialColor = glm::vec3(.9f);
+		ambientLightingColor = glm::vec3(.2f, .2f, .2f);
+		diffuseLightingColor = glm::vec3(.7f, .7f, .7f);
+		specularLightingColor = glm::vec3(.9f, .9f, .9f);
 
 		//Transformations
-		translate = glm::vec3(0.f, 1.5f, 0.f);
+		translate = glm::vec3(0.f, -1.5f, 0.f);
 		rotate = glm::vec3(1.f, 0.f, 0.f);
-		rotationAngle = 90.f;
-		scale = .05f;
+		rotationAngle = -90.f;
+		scale = .2f;
 
 		shininess = 32.f;
 

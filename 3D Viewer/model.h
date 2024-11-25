@@ -11,6 +11,9 @@
 class Model
 {
 public:
+    Model() {
+
+    }
     Model(std::string path) {
         loadModel(path);
     }
@@ -20,7 +23,34 @@ public:
         for (unsigned int i = 0; i < m_meshes.size(); i++)
             m_meshes[i].Draw(shader);
     }
+    //Directly load a model with a shader and a  path
+    //Useful when loading a model during program execution
+    Model load3DModel(std::string path, Shader shader, Menu *menu) {
+        // Instantiate and load model
+        Model ourModel(path);
+        // Build model matrix
+        glm::mat4 model = glm::mat4(1.0f);
 
+        //Model Transformations
+        model = glm::translate(model, menu->translate);
+        model = glm::scale(model, glm::vec3(menu->scale));
+        model = glm::rotate(model, glm::radians(menu->rotationAngle), glm::vec3(menu->rotate));
+        // Send model matrix to vertex shader as it remains constant
+        shader.setMat4("model", model);
+
+        //Material Colors
+        shader.setVec3("material.ambient", menu->ambientMaterialColor);
+        shader.setVec3("material.diffuse", menu->diffuseMaterialColor);
+        shader.setVec3("material.specular", menu->specularMaterialColor);
+        shader.setFloat("material.shininess", menu->shininess);
+
+        //Scene lighting
+        shader.setVec3("light.ambient", menu->ambientLightingColor);
+        shader.setVec3("light.diffuse", menu->diffuseLightingColor);
+        shader.setVec3("light.specular", menu->specularLightingColor);
+
+        return ourModel;
+    }
 private:
     std::vector<Mesh> m_meshes;
 
@@ -38,10 +68,6 @@ private:
         processNode(scene->mRootNode, scene);
     }
 
-    //Load model values
-    void loadModelValues() {
-
-    }
     // Recursively process each Node by calling processMesh on each node's 
     // meshes and adding them to m_meshes vector
     void processNode(aiNode* node, const aiScene* scene) {
