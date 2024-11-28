@@ -10,6 +10,8 @@
 #include <GL/glut.h>
 #include <stdio.h>
 #include <imgui.h>
+#include <fstream>
+#include <sys/stat.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
@@ -23,8 +25,6 @@ GLFWwindow* window;
 const unsigned int SCR_WIDTH = 1080;
 const unsigned int SCR_HEIGHT = 720;
 
-//Model
-Model load3DModel(std::string path, Shader shader);
 // Global values
 float last_x, last_y;
 bool first_mouse = true;
@@ -39,10 +39,18 @@ void process_keypresses(GLFWwindow* window, float deltaTime);
 void mouse_callback(GLFWwindow* window, double x_pos, double y_pos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
+//Check file
+inline bool file_exists(const std::string& name);
+
 int main(int* argc, char** argv)
 {
     INIReader config("config.ini");
     std::string ModelPath = "./models/rat.stl";
+
+    if (file_exists(ModelPath) == false) {
+        std::cout << "Default file not found" << std::endl;
+        return 0;
+    }
     if (!glfwInit())
         return -1;
 
@@ -115,12 +123,6 @@ int main(int* argc, char** argv)
     glEnable(GL_DEPTH_TEST);   // Depth testing
     glEnable(GL_CULL_FACE);    // Rear face culling
     glEnable(GL_MULTISAMPLE);  // MSAA
-    if (config.GetBoolean("Graphics", "Wireframe", false))
-    {
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    }
-
-    //Menu
     
     // Set up input sensitivities
     float mouse_sensitivity = config.GetFloat("Input", "MouseSensitivity", 0.3);
@@ -138,7 +140,8 @@ int main(int* argc, char** argv)
     shader.use(); // There is only have one shader so this one can remain attached
 
     //Load a default 3DModel from a path
-    Model ourModel = load3DModel(ModelPath, shader);
+    Model ourModel;
+    ourModel = ourModel.load3DModel(ModelPath, shader, &menu);
     //Time and Frame Animation
     float deltaTime, currentFrame, lastFrame = 0;
     bool show_demo_window = true;
@@ -157,8 +160,10 @@ int main(int* argc, char** argv)
     float* ambientLightingColorTmp = glm::value_ptr(menu.ambientLightingColor);
     float* diffuseLightingColorTmp = glm::value_ptr(menu.diffuseLightingColor);
     float* specularLightingColorTmp = glm::value_ptr(menu.specularLightingColor);
-
+    
+    //Path Temporary value
     char* modelPathTmp = ModelPath.data();
+    shader.reloadValues(&menu);
     while (!glfwWindowShouldClose(window))
     {
         //Create ImGui Frames
@@ -193,11 +198,32 @@ int main(int* argc, char** argv)
         }
         //Model Path and name
         ImGui::InputText("Model", modelPathTmp, 20, 0, NULL, NULL);
-        if (ImGui::Button("Button")) {
-            ourModel = load3DModel(modelPathTmp, shader);
+        if (ImGui::Button("Load")) {
+            if (file_exists(modelPathTmp) == false) {
+                //ImGui::BeginPopupModal("Error", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+                ImGui::OpenPopup("Message Box", ImGuiPopupFlags_NoReopen);
+                ImGui::Text("STL Model not found. Make sure the file is in the models folder");
+                ImGui::Separator();
+                //ImGui::CloseCurrentPopup();
+                if (ImGui::Button("OK")) {
+                    ImGui::CloseCurrentPopup();
+                    ImGui::EndPopup();
+                }
+            }
+            else {
+                ourModel = ourModel.load3DModel(modelPathTmp, shader, &menu);
+            }
         }
-        //WireFrame
-        ImGui::Checkbox("WireFrame", &menu.wireFrame);
+        //WireFrame display
+        if (ImGui::Checkbox("WireFrame", &menu.wireFrame)) {
+            if(!&menu.wireFrame)
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        } 
+        else { 
+            if(&menu.wireFrame)
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); 
+        }
+
         //Background
         ImGui::ColorEdit4("Background", backGroundColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB | 
             ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
@@ -242,9 +268,11 @@ int main(int* argc, char** argv)
         shader.setVec3("light.position", camera.getPosition());
         shader.setVec3("view_pos", camera.getPosition());
 
-        // The magic line of code 
+        //Draw Model
         ourModel.Draw(shader);
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        //Reload shader values
+        shader.reloadValues(&menu);
         glfwSwapBuffers(window);
         glfwPollEvents();
 
@@ -303,29 +331,12 @@ void scroll_callback(GLFWwindow* window, double x_offset, double y_offset)
     camera.zoom(y_offset);
 }
 
-Model load3DModel(std::string path, Shader shader) {
-    // Instantiate and load model
-    Model ourModel(path);
-    // Build model matrix
-    glm::mat4 model = glm::mat4(1.0f);
-
-    //Model Transformations
-    model = glm::translate(model, menu.translate);
-    model = glm::scale(model, glm::vec3(menu.scale));
-    model = glm::rotate(model, glm::radians(menu.rotationAngle), glm::vec3(menu.rotate));
-    // Send model matrix to vertex shader as it remains constant
-    shader.setMat4("model", model);
-
-    //Material Colors
-    shader.setVec3("material.ambient", menu.ambientMaterialColor);
-    shader.setVec3("material.diffuse", menu.diffuseMaterialColor);
-    shader.setVec3("material.specular", menu.specularMaterialColor);
-    shader.setFloat("material.shininess", menu.shininess);
-
-    //Scene lighting
-    shader.setVec3("light.ambient", menu.ambientLightingColor);
-    shader.setVec3("light.diffuse", menu.diffuseLightingColor);
-    shader.setVec3("light.specular", menu.specularLightingColor);
-
-    return ourModel;
+inline bool file_exists(const std::string& name) {
+    if (FILE* file = fopen(name.c_str(), "r")) {
+        fclose(file);
+        return true;
+    }
+    else {
+        return false;
+    }
 }

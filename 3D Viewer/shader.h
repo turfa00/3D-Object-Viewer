@@ -62,6 +62,15 @@ public:
         glUniform1f(location, value);    
     }
 
+    void reloadValues(Menu* menu) {
+        setVec3("material.ambient", menu->ambientMaterialColor);
+        setVec3("material.diffuse", menu->diffuseMaterialColor);
+        setVec3("material.specular", menu->specularMaterialColor);
+        setFloat("material.shininess", menu->shininess);
+        setVec3("light.ambient", menu->ambientLightingColor);
+        setVec3("light.diffuse", menu->diffuseLightingColor);
+        setVec3("light.specular", menu->specularLightingColor);
+    }
     unsigned int get_id(void) { return m_id; }
 
 private:

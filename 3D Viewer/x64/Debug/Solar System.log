@@ -5,5 +5,5 @@ C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewe
 C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\camera.h(85,11): warning C4305: 'initialisation' : troncation de 'double' à 'float'
 C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\camera.h(37,32): warning C4244: '-=' : conversion de 'double' en 'float', perte possible de données
 C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\mesh.h(23,1): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\main.cpp(143,22): warning C4101: 'currentFrame' : variable locale non référencée
+C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\main.cpp(146,22): warning C4101: 'currentFrame' : variable locale non référencée
   Solar System.vcxproj -> C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\x64\Debug\3D Viewer.exe
