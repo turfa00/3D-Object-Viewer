@@ -68,8 +68,4 @@ public:
 
 		wireFrame = false;
 	}
-
-	void setSensitivities(float mouse_sensitivity, float zoom_sensitivity, float fov_sensitivity) {
-		camera->setSensitivities(mouse_sensitivity, zoom_sensitivity, fov_sensitivity);
-	}
 };

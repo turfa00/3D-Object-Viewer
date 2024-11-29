@@ -104,15 +104,11 @@ int main(int* argc, char** argv)
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
 
-    //ImGui_ImplOpenGL3_Init(glsl_version);
-
     if (!window)
     {
         glfwTerminate();
         return -1;
     }
-
-    
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
@@ -125,10 +121,10 @@ int main(int* argc, char** argv)
     glEnable(GL_MULTISAMPLE);  // MSAA
     
     // Set up input sensitivities
-    float mouse_sensitivity = config.GetFloat("Input", "MouseSensitivity", 0.3);
-    float zoom_sensitivity = config.GetFloat("Input", "ZoomSensitivity", 0.5);
-    float fov_sensitivity = config.GetFloat("Input", "FovSensitivity", 0.4);
-    camera.setSensitivities(mouse_sensitivity, zoom_sensitivity, fov_sensitivity);
+    float *mouse_sensitivity = &menu.mouseSensitivity;
+    float *zoom_sensitivity = &menu.zoomSensitivity;
+    float *fov_sensitivity = &menu.fovSensitivity;
+    camera.setSensitivities(*mouse_sensitivity, *zoom_sensitivity, *fov_sensitivity);
 
 
     // Instantiate, compile and link shader
@@ -248,9 +244,10 @@ int main(int* argc, char** argv)
             ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
 
         //Input
-        ImGui::SliderFloat("Mouse Sensitivity", &menu.mouseSensitivity, 0.0f, 1.0f);
-        ImGui::SliderFloat("Zoom Sensitivity", &menu.zoomSensitivity, 0.0f, 1.0f);
-        ImGui::SliderFloat("Fov Sensitivity", &menu.fovSensitivity, 0.0f, 1.0f);
+        ImGui::SliderFloat("Mouse Sensitivity", mouse_sensitivity, 0.0f, 1.0f);
+        ImGui::SliderFloat("Zoom Sensitivity", zoom_sensitivity, 0.0f, 1.0f);
+        ImGui::SliderFloat("Fov Sensitivity", fov_sensitivity, 0.0f, 1.0f);
+        camera.setSensitivities(menu.mouseSensitivity, menu.zoomSensitivity, menu.fovSensitivity);
         
         //End menu
         ImGui::End();
