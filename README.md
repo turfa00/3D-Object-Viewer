@@ -6,10 +6,9 @@ It uses OpenGL for rendering and Dear ImGui for a user-friendly graphical interf
 Note: This project is still in progress. Features are being actively developed, and the codebase is subject to significant changes. <h5> <br />
 
 <h4>Prerequisites<h4> <br />
-
-C++17 or later.
-OpenGL 3.3 or higher.
-GLFW (Window and input handling).
-GLUT
-Dear ImGui (UI).
-GLAD (OpenGL loader).
+<h5></h5>C++17 or later.<br />
+OpenGL 3.3 or higher.<br />
+GLFW (Window and input handling).<br />
+GLUT<br />
+Dear ImGui (UI).<br />
+GLAD (OpenGL loader).<h5><br />
