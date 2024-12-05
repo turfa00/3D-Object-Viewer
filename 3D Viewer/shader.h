@@ -11,7 +11,7 @@ class Shader
 public:
     Shader(std::string vertex_path, std::string fragment_path, std::string geometry_path) {
         // Compile
-        
+        GLenum error = glGetError();
         unsigned int program = glCreateProgram();
         unsigned int vertex_shader = compile(GL_VERTEX_SHADER, vertex_path);
         unsigned int fragment_shader = compile(GL_FRAGMENT_SHADER, fragment_path);
@@ -36,7 +36,10 @@ public:
         // Free compiled shaders
         glDeleteShader(vertex_shader);
         glDeleteShader(fragment_shader);
-        glDeleteShader(geometry_shader);        
+        glDeleteShader(geometry_shader);     
+        if (error != GL_NO_ERROR) {
+            std::cerr << "OpenGL Error: " << error << std::endl;
+        }
     }
 
     // Bind shader program to opengl

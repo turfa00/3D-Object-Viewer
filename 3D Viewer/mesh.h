@@ -19,14 +19,18 @@ public:
     }
 
     void Draw(Shader shader) {
+        GLenum error = glGetError();
         glBindVertexArray(m_vao);
         glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT, 0);
         glBindVertexArray(0);  // Unbind vao
-        
+        if (error != GL_NO_ERROR) {
+            std::cerr << "OpenGL Error: " << error << std::endl;
+        }
     }
 
 private:
     void setupMesh() {
+        GLenum error = glGetError();
         glGenVertexArrays(1, &m_vao);
         glGenBuffers(1, &m_vbo);
         glGenBuffers(1, &m_ibo);
@@ -49,6 +53,9 @@ private:
         glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
 
         glBindVertexArray(0);
+        if (error != GL_NO_ERROR) {
+            std::cerr << "OpenGL Error: " << error << std::endl;
+        }
     }
     unsigned int m_vao, m_vbo, m_ibo;
     std::vector<Vertex> m_vertices;
