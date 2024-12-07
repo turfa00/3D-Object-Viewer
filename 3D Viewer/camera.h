@@ -98,5 +98,5 @@ private:
         glm::vec3 right_vec = glm::normalize(glm::cross(front_vec, m_WORLD_UP_VEC));
         m_up_vec = glm::normalize(glm::cross(right_vec, front_vec));
     }
-
+    
 };

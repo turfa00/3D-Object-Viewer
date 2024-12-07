@@ -101,9 +101,6 @@
     <ClInclude Include="dependencies\include\GL\tube.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="dependencies\include\assimp\include\assimp\Compiler\poppack1.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>

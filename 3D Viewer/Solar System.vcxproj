@@ -551,7 +551,6 @@
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="shader.h" />
-    <ClInclude Include="utils.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\..\..\..\..\..\..\Program Files\Assimp\lib\x64\assimp-vc143-mt.lib" />

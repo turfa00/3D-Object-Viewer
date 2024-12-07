@@ -32,22 +32,22 @@ public:
         glm::mat4 model = glm::mat4(1.0f);
 
         //Model Transformations
-        model = glm::translate(model, menu->translate);
-        model = glm::scale(model, glm::vec3(menu->scale));
-        model = glm::rotate(model, glm::radians(menu->rotationAngle), glm::vec3(menu->rotate));
+        model = glm::translate(model, menu->getTranslate());
+        model = glm::scale(model, glm::vec3(menu->getScale()));
+        model = glm::rotate(model, glm::radians(menu->getRotationAngle()), glm::vec3(menu->getRotate()));
         // Send model matrix to vertex shader as it remains constant
         shader.setMat4("model", model);
 
         //Material Colors
-        shader.setVec3("material.ambient", menu->ambientMaterialColor);
-        shader.setVec3("material.diffuse", menu->diffuseMaterialColor);
-        shader.setVec3("material.specular", menu->specularMaterialColor);
-        shader.setFloat("material.shininess", menu->shininess);
+        shader.setVec3("material.ambient", menu->getAmbientMaterialColor());
+        shader.setVec3("material.diffuse", menu->getDiffuseMaterialColor());
+        shader.setVec3("material.specular", menu->getSpecularMaterialColor());
+        shader.setFloat("material.shininess", menu->getShininess());
 
         //Scene lighting
-        shader.setVec3("light.ambient", menu->ambientLightingColor);
-        shader.setVec3("light.diffuse", menu->diffuseLightingColor);
-        shader.setVec3("light.specular", menu->specularLightingColor);
+        shader.setVec3("light.ambient", menu->getAmbientLightingColor());
+        shader.setVec3("light.diffuse", menu->getDiffuseLightingColor());
+        shader.setVec3("light.specular", menu->getSpecularLightingColor());
 
         return ourModel;
     }

@@ -2,8 +2,6 @@
 #include <GLFW/glfw3.h>
 #include <GL/gl.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include <inih/INIReader.h>
 #include "camera.h"
 #include "menu.h"
 #include "model.h"
@@ -12,13 +10,9 @@
 #include <stdio.h>
 #include <imgui.h>
 #include <fstream>
-#include <sys/stat.h>
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
-
-#if defined(IMGUI_IMPL_OPENGL_ES2)
-#endif
 #define GL_SILENCE_DEPRECATION
 
 GLFWwindow* window;
@@ -31,10 +25,9 @@ float last_x, last_y;
 bool first_mouse = true;
 float cameraSpeed = 5.f;
 
-// Camera
 Camera camera;
 Menu menu(camera);
-
+Model model;
 
 //Controls
 void process_keypresses(GLFWwindow* window, float deltaTime);
@@ -91,7 +84,6 @@ int main(int* argc, char** argv)
         // Setup Dear ImGui style
         ImGui::StyleColorsDark();
         ImGui_ImplGlfw_InitForOpenGL(window, true);
-
         if (!window)
         {
             glfwTerminate();
@@ -109,11 +101,10 @@ int main(int* argc, char** argv)
         glEnable(GL_MULTISAMPLE);  // MSAA
 
         // Set up input sensitivities
-        float* mouse_sensitivity = &menu.mouseSensitivity;
-        float* zoom_sensitivity = &menu.zoomSensitivity;
-        float* fov_sensitivity = &menu.fovSensitivity;
+        float* mouse_sensitivity = &menu.getMouseSensitivity();
+        float* zoom_sensitivity = &menu.getZoomSensitivity();
+        float* fov_sensitivity = &menu.getFovSensitivity();
         camera.setSensitivities(*mouse_sensitivity, *zoom_sensitivity, *fov_sensitivity);
-
 
         // Instantiate, compile and link shader
         Shader shader(
@@ -124,8 +115,7 @@ int main(int* argc, char** argv)
         shader.use(); // There is only have one shader so this one can remain attached
 
         //Load a default 3DModel from the default path
-        Model ourModel;
-        ourModel = ourModel.load3DModel(ModelPath, shader, &menu);
+        model = model.load3DModel(ModelPath, shader, &menu);
         //Time and Frame Animation
         float deltaTime, currentFrame, lastFrame = 0;
         bool show_demo_window = true;
@@ -133,17 +123,17 @@ int main(int* argc, char** argv)
 
         //We store float[] values that are then affected then transferred to glm menu values
         //BackGround and Scene Temporary Values
-        float* backGroundColorTmp = glm::value_ptr(menu.backgroundColor);
+        float* backGroundColorTmp = glm::value_ptr(menu.getBackgroundColor());
 
         //Material Temporary Values
-        float* ambientMaterialColorTmp = glm::value_ptr(menu.ambientMaterialColor);
-        float* diffuseMaterialColorTmp = glm::value_ptr(menu.diffuseMaterialColor);
-        float* specularMaterialColorTmp = glm::value_ptr(menu.specularMaterialColor);
+        float* ambientMaterialColorTmp = glm::value_ptr(menu.getAmbientMaterialColor());
+        float* diffuseMaterialColorTmp = glm::value_ptr(menu.getDiffuseMaterialColor());
+        float* specularMaterialColorTmp = glm::value_ptr(menu.getSpecularMaterialColor());
 
         //Scene Lighting Temporary Values
-        float* ambientLightingColorTmp = glm::value_ptr(menu.ambientLightingColor);
-        float* diffuseLightingColorTmp = glm::value_ptr(menu.diffuseLightingColor);
-        float* specularLightingColorTmp = glm::value_ptr(menu.specularLightingColor);
+        float* ambientLightingColorTmp = glm::value_ptr(menu.getAmbientLightingColor());
+        float* diffuseLightingColorTmp = glm::value_ptr(menu.getDiffuseLightingColor());
+        float* specularLightingColorTmp = glm::value_ptr(menu.getSpecularLightingColor());
 
         //Path Temporary value
         char* modelPathTmp = ModelPath.data();
@@ -181,7 +171,7 @@ int main(int* argc, char** argv)
                 ImGui::EndMainMenuBar();
             }
             //Model Path and name
-            ImGui::InputText("Model", modelPathTmp, 20, 0, NULL, NULL);
+            ImGui::InputText("Model", modelPathTmp, 50, 0, NULL, NULL);
             if (ImGui::Button("Load")) {
                 if (file_exists(modelPathTmp) == false) {
                     //ImGui::BeginPopupModal("Error", NULL, ImGuiWindowFlags_AlwaysAutoResize);
@@ -195,16 +185,16 @@ int main(int* argc, char** argv)
                     }
                 }
                 else {
-                    ourModel = ourModel.load3DModel(modelPathTmp, shader, &menu);
+                    model = model.load3DModel(modelPathTmp, shader, &menu);
                 }
             }
             //WireFrame display
-            if (ImGui::Checkbox("WireFrame", &menu.wireFrame)) {
-                if (!&menu.wireFrame)
+            if (ImGui::Checkbox("WireFrame", &menu.isWireFrame())) {
+                if (!&menu.isWireFrame())
                     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
             }
             else {
-                if (&menu.wireFrame)
+                if (&menu.isWireFrame())
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             }
 
@@ -221,7 +211,7 @@ int main(int* argc, char** argv)
                 ImGuiColorEditFlags_PickerHueWheel | ImGuiColorEditFlags_InputRGB);
 
             //Shininess
-            ImGui::SliderFloat("Shininess", &menu.shininess, 0.0f, 100.0f);
+            ImGui::SliderFloat("Shininess", &menu.getShininess(), 0.0f, 100.0f);
             //Scene
             ImGui::Text("Scene");
             ImGui::ColorEdit4("Ambient Scene", ambientLightingColorTmp, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_DisplayRGB |
@@ -235,7 +225,7 @@ int main(int* argc, char** argv)
             ImGui::SliderFloat("Mouse Sensitivity", mouse_sensitivity, 0.0f, 1.0f);
             ImGui::SliderFloat("Zoom Sensitivity", zoom_sensitivity, 0.0f, 1.0f);
             ImGui::SliderFloat("Fov Sensitivity", fov_sensitivity, 0.0f, 1.0f);
-            camera.setSensitivities(menu.mouseSensitivity, menu.zoomSensitivity, menu.fovSensitivity);
+            camera.setSensitivities(menu.getMouseSensitivity(), menu.getZoomSensitivity(), menu.getFovSensitivity());
 
             //End menu
             ImGui::End();
@@ -254,7 +244,7 @@ int main(int* argc, char** argv)
             shader.setVec3("view_pos", camera.getPosition());
 
             //Draw Model
-            ourModel.Draw(shader);
+            model.Draw(shader);
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
             //Reload shader values
             shader.reloadValues(&menu);
@@ -296,12 +286,7 @@ void process_keypresses(GLFWwindow* window, float delta_time)
         camera.orbit(0.f, -cameraSpeed);
     }
 
-
-    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
-    {
-        glfwSetWindowShouldClose(window, true);
-    }
-
+    //Fov controls
     if (glfwGetKey(window, GLFW_KEY_LEFT_BRACKET) == GLFW_PRESS)
     {
         camera.narrowFov();

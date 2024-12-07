@@ -5,6 +5,10 @@ C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewe
 C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\camera.h(85,11): warning C4305: 'initialisation' : troncation de 'double' à 'float'
 C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\camera.h(37,32): warning C4244: '-=' : conversion de 'double' en 'float', perte possible de données
 C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\mesh.h(24,1): warning C4267: 'argument' : conversion de 'size_t' en 'GLsizei', perte possible de données
-C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\main.cpp(130,26): warning C4101: 'currentFrame' : variable locale non référencée
-C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\main.cpp(67,22): warning C4101: 'monitor' : variable locale non référencée
+C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\main.cpp(122,26): warning C4101: 'currentFrame' : variable locale non référencée
+C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\3D Viewer\main.cpp(60,22): warning C4101: 'monitor' : variable locale non référencée
+dependencies\include\assimp\lib\libIrrXML.a : warning LNK4003: format de bibliothèque non valide ; bibliothèque ignorée
+dependencies\lib\assimp\libIrrXML.a : warning LNK4003: format de bibliothèque non valide ; bibliothèque ignorée
+dependencies\lib\libIrrXML.a : warning LNK4003: format de bibliothèque non valide ; bibliothèque ignorée
+LINK : warning LNK4098: conflit entre la bibliothèque par défaut 'MSVCRT' et les autres bibliothèques ; utilisez /NODEFAULTLIB:library
   Solar System.vcxproj -> C:\Users\turfa\OneDrive\Documents\GitHub\Object Viewer\3D-Object-Viewer\x64\Debug\3D Viewer.exe

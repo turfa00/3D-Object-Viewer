@@ -66,13 +66,13 @@ public:
     }
 
     void reloadValues(Menu* menu) {
-        setVec3("material.ambient", menu->ambientMaterialColor);
-        setVec3("material.diffuse", menu->diffuseMaterialColor);
-        setVec3("material.specular", menu->specularMaterialColor);
-        setFloat("material.shininess", menu->shininess);
-        setVec3("light.ambient", menu->ambientLightingColor);
-        setVec3("light.diffuse", menu->diffuseLightingColor);
-        setVec3("light.specular", menu->specularLightingColor);
+        setVec3("material.ambient", menu->getAmbientMaterialColor());
+        setVec3("material.diffuse", menu->getDiffuseMaterialColor());
+        setVec3("material.specular", menu->getSpecularMaterialColor());
+        setFloat("material.shininess", menu->getShininess());
+        setVec3("light.ambient", menu->getAmbientLightingColor());
+        setVec3("light.diffuse", menu->getDiffuseLightingColor());
+        setVec3("light.specular", menu->getSpecularLightingColor());
     }
     unsigned int get_id(void) { return m_id; }
 
