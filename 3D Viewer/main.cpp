@@ -149,7 +149,7 @@ int main(int* argc, char** argv)
             deltaTime = currentFrame - lastFrame;
             lastFrame = currentFrame;
 
-            ImGui::Begin("3D Object Viewer");                          // Create a window called "Hello, world!" and append into it.
+            ImGui::Begin("3D Object Viewer");
 
             //Menu Bar
             if (ImGui::BeginMainMenuBar()) {
