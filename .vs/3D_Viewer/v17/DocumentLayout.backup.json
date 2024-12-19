@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\main.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\shaders\\fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\geometry.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\shaders\\geometry.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\shader.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\mesh.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -17,14 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\model.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\model.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\geometry.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\shaders\\geometry.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|solutionrelative:3D Viewer\\shaders\\fragment.glsl||{8B382828-6202-11D1-8870-0000F87579D2}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{ACBF6D63-DABC-45F6-9529-39DD34FDA4BE}|3D Viewer\\Solar System.vcxproj|C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\vertex.glsl||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -49,24 +49,23 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 7,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "geometry.glsl",
               "DocumentMoniker": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\geometry.glsl",
               "RelativeDocumentMoniker": "3D Viewer\\shaders\\geometry.glsl",
               "ToolTip": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\geometry.glsl",
               "RelativeToolTip": "3D Viewer\\shaders\\geometry.glsl",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-14T14:27:16.814Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+              "WhenOpened": "2024-12-14T14:27:16.814Z"
             },
             {
               "$type": "Document",
@@ -78,21 +77,19 @@
               "RelativeToolTip": "3D Viewer\\shaders\\vertex.glsl",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-14T14:31:23.425Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T14:31:23.425Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "fragment.glsl",
               "DocumentMoniker": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\fragment.glsl",
               "RelativeDocumentMoniker": "3D Viewer\\shaders\\fragment.glsl",
               "ToolTip": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shaders\\fragment.glsl",
               "RelativeToolTip": "3D Viewer\\shaders\\fragment.glsl",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-14T14:27:17.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T14:27:17.462Z"
             },
             {
               "$type": "Document",
@@ -108,16 +105,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "shader.h",
               "DocumentMoniker": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shader.h",
               "RelativeDocumentMoniker": "3D Viewer\\shader.h",
               "ToolTip": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\shader.h",
               "RelativeToolTip": "3D Viewer\\shader.h",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAEoAAABCAAAAAAAAAA==",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEoAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-25T14:30:35.054Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T14:30:35.054Z"
             },
             {
               "$type": "Document",
@@ -133,20 +129,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "main.cpp",
               "DocumentMoniker": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\main.cpp",
               "RelativeDocumentMoniker": "3D Viewer\\main.cpp",
               "ToolTip": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\main.cpp",
               "RelativeToolTip": "3D Viewer\\main.cpp",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAFUAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAABEBAAAAAAAAAAAAAJcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-22T15:51:07.355Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "mesh.h",
               "DocumentMoniker": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\mesh.h",
               "RelativeDocumentMoniker": "3D Viewer\\mesh.h",
@@ -154,12 +150,11 @@
               "RelativeToolTip": "3D Viewer\\mesh.h",
               "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-22T15:59:24.851Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-22T15:59:24.851Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "model.h",
               "DocumentMoniker": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\model.h",
               "RelativeDocumentMoniker": "3D Viewer\\model.h",
@@ -167,8 +162,7 @@
               "RelativeToolTip": "3D Viewer\\model.h",
               "ViewState": "AgIAAF0AAAAAAAAAAAAAACsAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-22T15:55:27.783Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-22T15:55:27.783Z"
             },
             {
               "$type": "Document",

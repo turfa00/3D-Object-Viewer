@@ -65,8 +65,7 @@
               "RelativeToolTip": "3D Viewer\\shaders\\geometry.glsl",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-14T14:27:16.814Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T14:27:16.814Z"
             },
             {
               "$type": "Document",
@@ -90,8 +89,7 @@
               "RelativeToolTip": "3D Viewer\\shaders\\fragment.glsl",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-12-14T14:27:17.462Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-12-14T14:27:17.462Z"
             },
             {
               "$type": "Document",
@@ -115,8 +113,7 @@
               "RelativeToolTip": "3D Viewer\\shader.h",
               "ViewState": "AgIAAD8AAAAAAAAAAAAAAEoAAABCAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-11-25T14:30:35.054Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-25T14:30:35.054Z"
             },
             {
               "$type": "Document",
@@ -138,7 +135,7 @@
               "RelativeDocumentMoniker": "3D Viewer\\main.cpp",
               "ToolTip": "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\main.cpp",
               "RelativeToolTip": "3D Viewer\\main.cpp",
-              "ViewState": "AgIAAJAAAAAAAAAAAAAAAJcAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJcAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-11-22T15:51:07.355Z",
               "EditorCaption": ""

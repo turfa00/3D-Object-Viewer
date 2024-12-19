@@ -1,9 +1,22 @@
 {
-    "Version": "1.1",
-    "Data": {
-        "Source": "c:\\users\\turfa\\onedrive\\documents\\github\\object viewer\\3d-object-viewer\\3d viewer\\dependencies\\include\\glm\\glm.cppm",
-        "ProvidedModule": "glm",
-        "ImportedModules": [],
-        "ImportedHeaderUnits": []
-    }
+    "version": 1,
+    "revision": 0,
+    "rules": [
+        {
+            "primary-output": "x64\\Debug\\glm.cppm.obj",
+            "outputs": [
+                "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\x64\\Debug\\vc143.pdb",
+                "x64\\Debug\\",
+                "C:\\Users\\turfa\\OneDrive\\Documents\\GitHub\\Object Viewer\\3D-Object-Viewer\\3D Viewer\\x64\\Debug\\glm.cppm.ifc"
+            ],
+            "provides": [
+                {
+                    "logical-name": "glm",
+                    "source-path": "c:\\users\\turfa\\onedrive\\documents\\github\\object viewer\\3d-object-viewer\\3d viewer\\dependencies\\include\\glm\\glm.cppm",
+                    "is-interface": true
+                }
+            ],
+            "requires": []
+        }
+    ]
 }
